@@ -1,11 +1,13 @@
 import React from 'react';
+import TodoList from './components/TodoComponents/TodoList';
+import TodoForm from './components/TodoComponents/TodoForm';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 class App extends React.Component {
   // you will need a place to store your state in this component.
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state = {
       task: '',
       todos: [
@@ -22,14 +24,49 @@ class App extends React.Component {
       ]
     };
   }
-  // design `App` to be the parent component of your application.
-  // this component is going to take care of state, and any change handlers you need to work with your state
-  // Add the functionality to toggle your todo's completed flag from false to true
-  // Add the ability to remove any todos that you have completed. .filter will be your best friend here. When a user clicks on the Clear Completed button call your handler function that will filter out any todos that have the completed flag toggled to true.
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+
+    const newTodo = {
+      task: this.state.task,
+      id: Date.now(),
+      completed: false
+    };
+
+    this.setState({
+      todos: [...this.state.todos, newTodo],
+      task: ''
+    });
+  };
+
+  clearCompleted = () => {
+    const newTodo = this.state.todos.filter(todo => !todo.completed);
+    this.setState({
+      todos: newTodo
+    });
+  };
+
+  toggleTodo = (id) => {
+    this.setState({
+      todos: this.state.todos.map(todo =>
+        todo.id === id
+          ? { ...todo, completed: !todo.completed }
+          : todo
+      )
+    });
+  };
+
   render() {
     return (
       <div>
-        <h2>Welcome to your Todo App!</h2>
+        <h2>Today Todos</h2>
+        <TodoList todos={this.state.todos} toggleTodo={this.toggleTodo} />
+        <TodoForm
+          handleSubmit={this.handleSubmit}
+          clearCompleted={this.clearCompleted}
+          handleChange={this.handleChange}
+          task={this.state.task} />
       </div>
     );
   }
