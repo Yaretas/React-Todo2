@@ -9,7 +9,7 @@ export default function TodoForm (props){
         <Form onSubmit={props.handleSubmit}>
             <FormGroup>
                 <Label for="input-task">Task</Label>
-                <Input type="text" value={props.task} onChange={props.handleChange} />
+                <input type="text" value={props.task} onChange={props.handleChange} />
             </FormGroup>
             <Button type='submit'>Add Task</Button>
             <Button onClick={props.clearCompleted}>Clear Tasks</Button>
