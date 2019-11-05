@@ -40,6 +40,12 @@ class App extends React.Component {
     });
   };
 
+  handleChange = (event) => {
+    this.setState({
+      task: event.target.value
+    });
+  }
+
   clearCompleted = () => {
     const newTodo = this.state.todos.filter(todo => !todo.completed);
     this.setState({
@@ -56,6 +62,8 @@ class App extends React.Component {
       )
     });
   };
+
+
 
   render() {
     return (
