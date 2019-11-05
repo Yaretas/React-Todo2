@@ -2,6 +2,7 @@ import React from 'react';
 import TodoList from './components/TodoComponents/TodoList';
 import TodoForm from './components/TodoComponents/TodoForm';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './components/TodoComponents/Todo.css';
 
 
 class App extends React.Component {
@@ -67,7 +68,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="App">
         <h2>Today Todos</h2>
         <TodoList todos={this.state.todos} toggleTodo={this.toggleTodo} />
         <TodoForm
